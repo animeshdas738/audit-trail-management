@@ -2,13 +2,13 @@
  * @description Data wrapper for Salesforce component metadata
  */
 public class ComponentMetadata {
-    public String componentType { get; set; }
-    public String componentName { get; set; }
-    public String memberName { get; set; }
-    public String sourceOrg { get; set; }
-    public List<String> dependencies { get; set; }
-    public DateTime lastModified { get; set; }
-    public String modifiedBy { get; set; }
+    @AuraEnabled public String componentType { get; set; }
+    @AuraEnabled public String componentName { get; set; }
+    @AuraEnabled public String memberName { get; set; }
+    @AuraEnabled public String sourceOrg { get; set; }
+    @AuraEnabled public List<String> dependencies { get; set; }
+    @AuraEnabled public DateTime lastModified { get; set; }
+    @AuraEnabled public String modifiedBy { get; set; }
     
     /**
      * @description Constructor

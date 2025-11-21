@@ -2,14 +2,14 @@
  * @description Data wrapper for audit trail entries
  */
 public class AuditTrailEntry {
-    public String id { get; set; }
-    public String action { get; set; }
-    public String section { get; set; }
-    public DateTime createdDate { get; set; }
-    public String createdBy { get; set; }
-    public String display { get; set; }
-    public String orgName { get; set; }
-    public String environmentType { get; set; }
+    @AuraEnabled public String id { get; set; }
+    @AuraEnabled public String action { get; set; }
+    @AuraEnabled public String section { get; set; }
+    @AuraEnabled public DateTime createdDate { get; set; }
+    @AuraEnabled public String createdBy { get; set; }
+    @AuraEnabled public String display { get; set; }
+    @AuraEnabled public String orgName { get; set; }
+    @AuraEnabled public String environmentType { get; set; }
     
     /**
      * @description Constructor

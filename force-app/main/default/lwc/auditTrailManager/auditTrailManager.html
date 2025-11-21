@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Audit Trail Management" icon-name="custom:custom63">
+        <div class="slds-p-around_medium">
+            <!-- Tab Navigation -->
+            <lightning-tabset variant="scoped" active-tab-value={activeTab}>
+                <template for:each={tabs} for:item="tab">
+                    <lightning-tab key={tab.value} label={tab.label} value={tab.value} onactive={handleTabChange}>
+                        <!-- Org Connections Tab -->
+                        <template if:true={isOrgsTab}>
+                            <c-org-connection-manager></c-org-connection-manager>
+                        </template>
+
+                        <!-- Component Analysis Tab -->
+                        <template if:true={isAnalysisTab}>
+                            <c-component-analysis></c-component-analysis>
+                        </template>
+
+                        <!-- Package Generation Tab -->
+                        <template if:true={isPackagesTab}>
+                            <c-package-generator></c-package-generator>
+                        </template>
+
+                        <!-- Deployment History Tab -->
+                        <template if:true={isDeploymentsTab}>
+                            <c-deployment-history></c-deployment-history>
+                        </template>
+                    </lightning-tab>
+                </template>
+            </lightning-tabset>
+
+            <!-- Loading Spinner -->
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+            </template>
+        </div>
+    </lightning-card>
+</template>

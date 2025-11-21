@@ -1,0 +1,23 @@
+<template>
+    <lightning-card title="Deployment History" icon-name="custom:custom19">
+        <div slot="actions">
+            <lightning-button
+                label="Refresh"
+                onclick={handleRefresh}
+                icon-name="utility:refresh">
+            </lightning-button>
+        </div>
+        
+        <div class="slds-p-around_medium">
+            <template if:true={deploymentPackages}>
+                <lightning-datatable
+                    key-field="Id"
+                    data={deploymentPackages}
+                    columns={columns}
+                    onrowaction={handleRowAction}
+                    hide-checkbox-column>
+                </lightning-datatable>
+            </template>
+        </div>
+    </lightning-card>
+</template>

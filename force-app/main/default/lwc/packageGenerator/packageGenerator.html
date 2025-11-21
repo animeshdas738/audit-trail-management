@@ -1,0 +1,83 @@
+<template>
+    <lightning-card title="Package Generator" icon-name="custom:custom85">
+        <div class="slds-p-around_medium">
+            <!-- Package Details Form -->
+            <lightning-input
+                name="packageName"
+                label="Package Name"
+                value={packageName}
+                onchange={handleInputChange}
+                required>
+            </lightning-input>
+
+            <lightning-input
+                name="targetOrg"
+                label="Target Org"
+                value={targetOrg}
+                onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input
+                name="version"
+                label="Version"
+                value={version}
+                onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-input
+                name="apiVersion"
+                label="API Version"
+                value={apiVersion}
+                onchange={handleInputChange}>
+            </lightning-input>
+
+            <lightning-textarea
+                name="description"
+                label="Description"
+                value={description}
+                onchange={handleInputChange}>
+            </lightning-textarea>
+
+            <!-- Actions -->
+            <div class="slds-m-top_medium">
+                <lightning-button
+                    label="Generate Package XML"
+                    variant="brand"
+                    onclick={handleGenerate}
+                    class="slds-m-right_small">
+                </lightning-button>
+                <template lwc:if={hasPackageXml}>
+                    <lightning-button
+                        label="Save Package"
+                        variant="success"
+                        onclick={handleSave}>
+                    </lightning-button>
+                </template>
+                <template lwc:else>
+                    <lightning-button
+                        label="Save Package"
+                        variant="success"
+                        onclick={handleSave}
+                        disabled="true">
+                    </lightning-button>
+                </template>
+            </div>
+
+            <!-- Package XML Preview -->
+            <template if:true={hasPackageXml}>
+                <div class="slds-m-top_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">Package XML Preview</h3>
+                    <lightning-textarea
+                        value={packageXml}
+                        readonly
+                        rows="15">
+                    </lightning-textarea>
+                </div>
+            </template>
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Processing" size="medium"></lightning-spinner>
+            </template>
+        </div>
+    </lightning-card>
+</template>

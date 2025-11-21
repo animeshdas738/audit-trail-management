@@ -1,0 +1,61 @@
+<template>
+    <lightning-card title="Component Analysis" icon-name="custom:custom18">
+        <div class="slds-p-around_medium">
+            <!-- Date Range Selection -->
+            <div class="slds-grid slds-gutters slds-m-bottom_medium">
+                <div class="slds-col">
+                    <lightning-input
+                        type="datetime"
+                        name="startDate"
+                        label="Start Date"
+                        value={startDate}
+                        onchange={handleStartDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col">
+                    <lightning-input
+                        type="datetime"
+                        name="endDate"
+                        label="End Date"
+                        value={endDate}
+                        onchange={handleEndDateChange}>
+                    </lightning-input>
+                </div>
+                <div class="slds-col slds-align-bottom">
+                    <lightning-button
+                        label="Analyze"
+                        variant="brand"
+                        onclick={handleAnalyze}>
+                    </lightning-button>
+                </div>
+            </div>
+
+            <!-- Results -->
+            <template if:true={hasComponents}>
+                <div class="slds-m-top_medium">
+                    <h3 class="slds-text-heading_small slds-m-bottom_small">
+                        Found {components.length} components
+                    </h3>
+                    
+                    <!-- Component Type Summary -->
+                    <div class="slds-grid slds-wrap slds-gutters">
+                        <template for:each={componentTypes} for:item="typeInfo">
+                            <div key={typeInfo.type} class="slds-col slds-size_1-of-4">
+                                <article class="slds-card">
+                                    <div class="slds-card__body slds-card__body_inner">
+                                        <div class="slds-text-heading_medium">{typeInfo.count}</div>
+                                        <div class="slds-text-body_small">{typeInfo.type}</div>
+                                    </div>
+                                </article>
+                            </div>
+                        </template>
+                    </div>
+                </div>
+            </template>
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Analyzing" size="medium"></lightning-spinner>
+            </template>
+        </div>
+    </lightning-card>
+</template>

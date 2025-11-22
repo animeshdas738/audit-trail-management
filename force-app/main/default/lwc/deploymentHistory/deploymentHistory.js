@@ -1,5 +1,6 @@
 import { LightningElement, wire, track } from 'lwc';
 import { refreshApex } from '@salesforce/apex';
+import { NavigationMixin } from 'lightning/navigation';
 import getDeploymentPackages from '@salesforce/apex/DeploymentHistoryController.getDeploymentPackages';
 
 const COLUMNS = [
@@ -21,7 +22,7 @@ const COLUMNS = [
     }
 ];
 
-export default class DeploymentHistory extends LightningElement {
+export default class DeploymentHistory extends NavigationMixin(LightningElement) {
     @track deploymentPackages = [];
     columns = COLUMNS;
     wiredPackagesResult;
@@ -63,12 +64,17 @@ export default class DeploymentHistory extends LightningElement {
     }
 
     handleDownloadXml(row) {
-        // Download package XML
+        // Download package XML using base64 encoding for Locker Service compatibility
+        const xmlContent = row.Package_XML__c || '';
+        const base64Data = btoa(unescape(encodeURIComponent(xmlContent)));
+        const dataUri = 'data:text/xml;base64,' + base64Data;
+        
         const element = document.createElement('a');
-        const file = new Blob([row.Package_XML__c], { type: 'text/xml' });
-        element.href = URL.createObjectURL(file);
+        element.href = dataUri;
         element.download = row.Name + '_package.xml';
+        document.body.appendChild(element);
         element.click();
+        document.body.removeChild(element);
     }
 
     handleRefresh() {

@@ -4,6 +4,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 export default class AuditTrailManager extends LightningElement {
     @track activeTab = 'orgs';
     @track isLoading = false;
+    @track selectedOrgName;
 
     tabs = [
         { value: 'orgs', label: 'Org Connections' },
@@ -30,6 +31,16 @@ export default class AuditTrailManager extends LightningElement {
 
     get isDeploymentsTab() {
         return this.activeTab === 'deployments';
+    }
+
+    handleViewAudit(event) {
+        // Get org name from the event detail
+        this.selectedOrgName = event.detail.orgName;
+        
+        // Switch to analysis tab
+        this.activeTab = 'analysis';
+        
+        this.showToast('Info', 'Viewing audit trail for: ' + this.selectedOrgName, 'info');
     }
 
     showToast(title, message, variant) {

@@ -7,7 +7,7 @@
                     <lightning-tab key={tab.value} label={tab.label} value={tab.value} onactive={handleTabChange}>
                         <!-- Org Connections Tab -->
                         <template if:true={isOrgsTab}>
-                            <c-org-connection-manager></c-org-connection-manager>
+                            <c-org-connection-manager onviewaudit={handleViewAudit}></c-org-connection-manager>
                         </template>
 
                         <!-- Component Analysis Tab -->

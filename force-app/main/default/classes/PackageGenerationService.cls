@@ -215,6 +215,12 @@ public class PackageGenerationService extends BaseService {
         List<Deployment_Component__c> componentRecords = new List<Deployment_Component__c>();
         
         for (ComponentMetadata component : components) {
+            // Skip components without required fields
+            if (String.isBlank(component.componentType) || String.isBlank(component.componentName)) {
+                this.logError('Skipping component with missing type or name: ' + JSON.serialize(component), null);
+                continue;
+            }
+            
             componentRecords.add(new Deployment_Component__c(
                 Deployment_Package__c = packageId,
                 Component_Type__c = component.componentType,
@@ -226,6 +232,8 @@ public class PackageGenerationService extends BaseService {
         if (!componentRecords.isEmpty()) {
             insert componentRecords;
             this.logInfo('Added ' + componentRecords.size() + ' components to package');
+        } else {
+            this.logError('No valid components to add to package', null);
         }
     }
     

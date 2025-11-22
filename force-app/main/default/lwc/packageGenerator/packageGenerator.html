@@ -14,7 +14,26 @@
                 name="targetOrg"
                 label="Target Org"
                 value={targetOrg}
-                onchange={handleInputChange}>
+                onchange={handleInputChange}
+                required>
+            </lightning-input>
+
+            <lightning-input
+                name="startDate"
+                label="Start Date"
+                type="date"
+                value={startDate}
+                onchange={handleInputChange}
+                required>
+            </lightning-input>
+
+            <lightning-input
+                name="endDate"
+                label="End Date"
+                type="date"
+                value={endDate}
+                onchange={handleInputChange}
+                required>
             </lightning-input>
 
             <lightning-input
